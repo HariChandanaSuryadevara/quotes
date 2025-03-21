@@ -3,42 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quote</title>
+    <style>
+        body {
+            text-align: center;
+            background-color:paleturquoise;
+        }
+        button{
+            background-color: brown;
+       }
+       button:hover {
+        background-color: orchid;
+       }
+        
+     </style>
 </head>
 <body>
-    <button>Click</button>
-    <script>
-    let button=document.getElementById("button")
-    let quotesArr=[]
-    let index=0
-    button.addEventListener("click",()=>displayNewQuote())
-    function displayNewQuote() {
-        index=Math.floor(Math.random()*quotesArr.length)
-        console.log(index)
-    }
-    async function fetchQuotes(index) {
-        let url="https://jacintodesign.github.io/quotes-api/data/quotes.json"
-        try {
-            let response=await fetch(url)
-            quotesArr=await resopnse.json()
-            console.log(quotesArr)
-            let obj=quotesArr[index]
-            textEle.textContent=obj.text
-            authorEle.textContent=obj.author
-        }
-        catch(error) {
-            console.log(error)
-        }
-    }
-        function displayNewQuote() {
-            index=Math.floor(Math.random()*quotesArr.length)
-            console.log(index)
-            fetchQuotes(index)
+    <div id="quoteContainer">
+        <div id="quoteText"></div>
+        <br><b><div id="quoteAuthor"></div></b>
+        <br><div id="tag1"></div>
+        <br><button id="quoteButton">New Quote</button>
+    </div>
 
-        }
-        fetchQuotes(index)
+    <script>
+        let button = document.getElementById("quoteButton");
+        let quotesArr = [];
+        let textEle = document.getElementById("quoteText");
+        let authorEle = document.getElementById("quoteAuthor");
+        let tagEle=document.getElementById("tag1");
         
-    
+
+        button.addEventListener("click", displayNewQuote);
+
+        async function fetchQuotes() {
+            let url = "https://jacintodesign.github.io/quotes-api/data/quotes.json";
+            try {
+                let response = await fetch(url);
+                quotesArr = await response.json();
+                displayNewQuote(); 
+            } catch (error) {
+                console.error(error);
+                
+            }
+        }
+
+        function displayNewQuote() {
+            if (quotesArr.length > 0) {
+                let index = Math.floor(Math.random() * quotesArr.length);
+                let obj= quotesArr[index];
+                textEle.textContent = obj.text;
+                authorEle.textContent = obj.author;
+                
+                tagEle.textContent=obj.tag;
+            }
+        }
+
+        fetchQuotes(); 
     </script>
 </body>
 </html>
