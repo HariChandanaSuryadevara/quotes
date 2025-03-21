@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>Click</button>
+    <script>
+    let button=document.getElementById("button")
+    let quotesArr=[]
+    let index=0
+    button.addEventListener("click",()=>displayNewQuote())
+    function displayNewQuote() {
+        index=Math.floor(Math.random()*quotesArr.length)
+        console.log(index)
+    }
+    async function fetchQuotes(index) {
+        let url="https://jacintodesign.github.io/quotes-api/data/quotes.json"
+        try {
+            let response=await fetch(url)
+            quotesArr=await resopnse.json()
+            console.log(quotesArr)
+            let obj=quotesArr[index]
+            textEle.textContent=obj.text
+            authorEle.textContent=obj.author
+        }
+        catch(error) {
+            console.log(error)
+        }
+    }
+        function displayNewQuote() {
+            index=Math.floor(Math.random()*quotesArr.length)
+            console.log(index)
+            fetchQuotes(index)
+
+        }
+        fetchQuotes(index)
+        
+    
+    </script>
+</body>
+</html>
